@@ -10,7 +10,7 @@ app.get("/getCountries/:name", (req, res) => {
     .get("https://restcountries.com/v3.1/name/" + req.params.name)
     .then(function (response) {
       if (response.status == 200) {
-        const filteredData = response.data.map((ele) => {
+        const filteredData = response.data.map((ele, index) => {
           return {
             flags: {
               svg: ele.flags.svg,
@@ -23,6 +23,7 @@ app.get("/getCountries/:name", (req, res) => {
             capital: ele.capital,
             area: ele.area,
             borders: ele.borders,
+            id: index,
           };
         });
         res.json(filteredData);
